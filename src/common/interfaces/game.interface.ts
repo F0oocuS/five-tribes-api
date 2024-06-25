@@ -11,4 +11,5 @@ export interface Game {
 	resources: any[];
 	activeResources: any[];
 	creatorID: number;
+	accessType: string;
 }

@@ -14,7 +14,8 @@ export class GamesService {
 			activeDjinns: [],
 			resources: [],
 			activeResources: [],
-			creatorID: 1
+			creatorID: 1,
+			accessType: 'public'
 		}
 	];
 	private gameID: number = 2;
@@ -30,7 +31,8 @@ export class GamesService {
 			activeDjinns: [],
 			resources: [],
 			activeResources: [],
-			creatorID: 1
+			creatorID: 1,
+			accessType: 'public'
 		}
 
 		this.games.push(newGame);
