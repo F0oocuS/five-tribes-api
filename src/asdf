@@ -1,0 +1,96 @@
+Five Tribes database relations
+
+=====================================================================================
+
+Games
+
+--id number
+--title string
+--accessType string
+--creatorId number
+--activePlayerId number
+--maxPlayerCount number
+--password string
+
+game hasMany player
+game hasMany gameTiles
+game hasMany gamePlayers
+game hasMany gameDjinns
+game hasMany gameResources
+
+=====================================================================================
+
+GameTiles
+
+--id number
+--color string
+--victoryPoints number
+--imagePath string
+--type string
+--action string
+--gameId number
+--x number
+--y number
+--palacesCount number
+--palmaTreesCount number
+--meeples string
+--isOnTable boolean | allow to be null
+--isOwned boolean | allow to be null
+--playerId number | allow to be null
+
+=====================================================================================
+
+GameResources
+
+--id number
+--name string
+--type string
+--imagePath string
+--gameId number
+--isOnTable boolean | allow to be null
+--isDiscard boolean | allow to be null
+--isOwned boolean | allow to be null
+--playerId number | allow to be null
+
+=====================================================================================
+
+GameDjinns
+
+--id number
+--name string
+--victoryPoints number
+--imagePath string
+--effect string
+--price string | allow to be null
+--gameId number
+--isOnTable boolean | allow to be null
+--isDiscard boolean | allow to be null
+--isOwned boolean | allow to be null
+--playerId number | allow to be null
+
+=====================================================================================
+
+Players
+
+--id number
+--score number
+--gold number
+--color string
+--camelCount number
+--meeples string
+--gameId number
+--userId number
+
+player hasOne game
+player hasMany gameTiles
+player hasMany gameDjinns
+player hasMany gameResources
+
+=====================================================================================
+
+User
+
+--id number
+--name string
+--email string
+--password string
