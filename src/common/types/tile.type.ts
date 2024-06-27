@@ -1,0 +1,1 @@
+export type TileType = 'small-market' | 'large-market' | 'oasis' | 'village' | 'sacred-place';
