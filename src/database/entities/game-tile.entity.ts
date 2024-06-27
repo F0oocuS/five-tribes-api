@@ -2,14 +2,16 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 
 import { Game } from './game.entity';
 import { Player } from './player.entity';
+import { TileColorEnum } from '../../common/enums/tile-color.enum';
+import { TileType } from '../../common/types/tile.type';
 
 @Entity({ name: 'game-tiles' })
 export class GameTile {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Column()
-	color: string;
+	@Column({ type: 'enum', enum: TileColorEnum })
+	color: TileColorEnum;
 
 	@Column({ name: 'victory_points' })
 	victoryPoints: number;
@@ -18,7 +20,7 @@ export class GameTile {
 	imagePath: string;
 
 	@Column()
-	type: string;
+	type: TileType;
 
 	@Column()
 	action: string;
@@ -29,19 +31,19 @@ export class GameTile {
 	@Column()
 	y: number;
 
-	@Column({ name: 'palaces_count' })
+	@Column({ name: 'palaces_count', default: 0 })
 	palacesCount: number;
 
-	@Column({ name: 'palma_trees_count' })
+	@Column({ name: 'palma_trees_count', default: 0 })
 	palmaTreesCount: number;
 
-	@Column()
+	@Column({ default: '010' })
 	meeples: string;
 
-	@Column({ name: 'is_on_table', nullable: true })
+	@Column({ name: 'is_on_table', default: false })
 	isOnTable: boolean;
 
-	@Column({ name: 'is_owned', nullable: true })
+	@Column({ name: 'is_owned', default: false })
 	isOwned: boolean
 
 	@ManyToOne(() => Game, game => game.gameTiles)

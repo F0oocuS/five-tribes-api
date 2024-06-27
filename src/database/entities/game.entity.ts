@@ -19,13 +19,13 @@ export class Game {
 	@Column({ name: 'access_type', type: 'enum', enum: AccessType, default: AccessType.PUBLIC })
 	accessType: AccessType;
 
-	@Column({ name: 'active_player_id' })
+	@Column({ name: 'active_player_id', nullable: true })
 	activePlayerId: number;
 
 	@Column({ name: 'max_player_count' })
 	maxPlayerCount: number;
 
-	@Column()
+	@Column({ nullable: true })
 	password: string;
 
 	@ManyToOne(() => User, user => user.games)

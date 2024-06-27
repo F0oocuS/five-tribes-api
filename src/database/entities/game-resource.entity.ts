@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 
 import { Game } from './game.entity';
 import { Player } from './player.entity';
+import { ResourceType } from '../../common/types/resource.type';
 
 @Entity({ name: 'game_resources' })
 export class GameResource {
@@ -12,18 +13,18 @@ export class GameResource {
 	name: string;
 
 	@Column()
-	type: string;
+	type: ResourceType;
 
 	@Column({ name: 'image_path' })
 	imagePath: string;
 
-	@Column({ name: 'is_on_table', nullable: true })
+	@Column({ name: 'is_on_table', default: false })
 	isOnTable: boolean;
 
-	@Column({ name: 'is_discard', nullable: true })
+	@Column({ name: 'is_discard', default: false })
 	isDiscard: boolean;
 
-	@Column({ name: 'is_owned', nullable: true })
+	@Column({ name: 'is_owned', default: false })
 	isOwned: boolean;
 
 	@ManyToOne(() => Game, game => game.gameResources)
