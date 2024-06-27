@@ -13,7 +13,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 			port: 3306,
 			username: 'root',
 			password: 'rootroot',
-			database: 'five_tribes',
+			database: 'five-tribes',
 			entities: [__dirname + '/**/*.entity{.ts,.js}'],
 			synchronize: true
 		}),
