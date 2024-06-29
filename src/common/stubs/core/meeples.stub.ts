@@ -1,7 +1,14 @@
-export const meeplesStub = {
-	white: 20,
-	yellow: 16,
-	blue: 18,
-	red: 18,
-	green: 18
-}
+// Meeples type:
+// 1 - WHITE || 20 in deck
+// 2 - GREEN || 18 in deck
+// 3 - RED || 18 in deck
+// 4 - BLUE || 18 in deck
+// 5 - YELLOW || 18 in deck
+
+export const MeeplesStub = [
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+	5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5
+]

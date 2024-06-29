@@ -1,12 +1,12 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { PlayerColorEnum } from '../../common/enums/player-color.enum';
-
 import { User } from './user.entity';
 import { Game } from './game.entity';
 import { GameTile } from './game-tile.entity';
 import { GameDjinn } from './game-djinn.entity';
 import { GameResource } from './game-resource.entity';
+
+import { PlayerColorEnum } from '../../common/enums/player-color.enum';
 
 @Entity({ name: 'players' })
 export class Player {

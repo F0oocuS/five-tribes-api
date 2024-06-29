@@ -1,10 +1,11 @@
 import { ArrayMinSize, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
 import { TileType } from '../../common/types/tile.type';
 import { ResourceType } from '../../common/types/resource.type';
+
 import { AccessType } from '../../common/enums/game.enums';
 import { TileColorEnum } from '../../common/enums/tile-color.enum';
-import { Type } from 'class-transformer';
 
 class CreateGameTileDto {
 	@IsString()
@@ -40,11 +41,10 @@ class CreateGameTileDto {
 	palmaTreesCount: number;
 
 	@IsString()
-	@IsNotEmpty()
-	meeples: string;
+	meeples?: string;
 }
 
-/*class CreateGameResourceDto {
+class CreateGameResourceDto {
 	@IsString()
 	@IsNotEmpty()
 	name: string;
@@ -56,7 +56,29 @@ class CreateGameTileDto {
 	@IsString()
 	@IsNotEmpty()
 	imagePath: string;
-}*/
+}
+
+class CreateGameDjinnDto {
+	@IsString()
+	@IsNotEmpty()
+	name: string;
+
+	@IsNumber()
+	@IsNotEmpty()
+	victoryPoints: number;
+
+	@IsString()
+	@IsNotEmpty()
+	imagePath: string;
+
+	@IsString()
+	@IsNotEmpty()
+	effect: string;
+
+	@IsString()
+	@IsOptional()
+	price?: string;
+}
 
 export class CreateGameDto {
 	@IsString()
@@ -83,4 +105,16 @@ export class CreateGameDto {
 	@ArrayMinSize(0)
 	@IsOptional()
 	gameTiles?: CreateGameTileDto[];
+
+	@ValidateNested({ each: true })
+	@Type(() => CreateGameResourceDto)
+	@ArrayMinSize(0)
+	@IsOptional()
+	gameResources?: CreateGameResourceDto[];
+
+	@ValidateNested({ each: true })
+	@Type(() => CreateGameDjinnDto)
+	@ArrayMinSize(0)
+	@IsOptional()
+	gameDjinns?: CreateGameDjinnDto[];
 }

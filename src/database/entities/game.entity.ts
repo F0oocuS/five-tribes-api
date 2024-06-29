@@ -2,11 +2,11 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 
 import { AccessType } from '../../common/enums/game.enums';
 
+import { User } from './user.entity';
 import { Player } from './player.entity';
 import { GameTile } from './game-tile.entity';
 import { GameDjinn } from './game-djinn.entity';
 import { GameResource } from './game-resource.entity';
-import { User } from './user.entity';
 
 @Entity({ name: 'games' })
 export class Game {

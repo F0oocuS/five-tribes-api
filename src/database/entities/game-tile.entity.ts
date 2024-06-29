@@ -2,8 +2,10 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 
 import { Game } from './game.entity';
 import { Player } from './player.entity';
-import { TileColorEnum } from '../../common/enums/tile-color.enum';
+
 import { TileType } from '../../common/types/tile.type';
+
+import { TileColorEnum } from '../../common/enums/tile-color.enum';
 
 @Entity({ name: 'game-tiles' })
 export class GameTile {
@@ -37,7 +39,7 @@ export class GameTile {
 	@Column({ name: 'palma_trees_count', default: 0 })
 	palmaTreesCount: number;
 
-	@Column({ default: '010' })
+	@Column()
 	meeples: string;
 
 	@Column({ name: 'is_on_table', default: false })

@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 
 import { Game } from './game.entity';
 import { Player } from './player.entity';
+
 import { ResourceType } from '../../common/types/resource.type';
 
 @Entity({ name: 'game_resources' })
