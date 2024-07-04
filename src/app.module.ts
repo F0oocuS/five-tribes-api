@@ -6,6 +6,7 @@ import { GamesModule } from './modules/games/games.module';
 import { AppController } from './app.controller';
 
 import { AppService } from './app.service';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
 	imports: [
@@ -19,7 +20,8 @@ import { AppService } from './app.service';
 			entities: [__dirname + '/**/*.entity{.ts,.js}'],
 			synchronize: true
 		}),
-		GamesModule
+		GamesModule,
+		UsersModule
 	],
 	controllers: [AppController],
 	providers: [AppService],

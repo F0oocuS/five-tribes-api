@@ -1,7 +1,8 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
-import { Game } from '../../database/entities/game.entity';
 import { GamesService } from './games.service';
+
+import { Game } from '../../database/entities/game.entity';
 import { CreateGameDto } from '../../database/dtos/create-game.dto';
 
 import { AccessType } from '../../common/enums/game.enums';
