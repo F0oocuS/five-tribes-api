@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { GamesModule } from './modules/games/games.module';
-
 import { AppController } from './app.controller';
 
 import { AppService } from './app.service';
-import { UsersModule } from './modules/users/users.module';
+
+import { AuthModule } from './modules/auth/auth.module';
+import { UserModule } from './modules/user/user.module';
+import { GameModule } from './modules/game/game.module';
 
 @Module({
 	imports: [
@@ -20,8 +21,9 @@ import { UsersModule } from './modules/users/users.module';
 			entities: [__dirname + '/**/*.entity{.ts,.js}'],
 			synchronize: true
 		}),
-		GamesModule,
-		UsersModule
+		AuthModule,
+		UserModule,
+		GameModule
 	],
 	controllers: [AppController],
 	providers: [AppService],

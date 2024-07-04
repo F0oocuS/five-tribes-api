@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { GamesService } from './games.service';
-import { GamesGateway } from './games.gateway';
-import { GamesController } from './games.controller';
+import { GameService } from './game.service';
+import { GameGateway } from './game.gateway';
+import { GameController } from './game.controller';
 
 import { Game } from '../../database/entities/game.entity';
 import { GameTile } from '../../database/entities/game-tile.entity';
@@ -12,8 +12,8 @@ import { GameDjinn } from '../../database/entities/game-djinn.entity';
 
 @Module({
 	imports: [TypeOrmModule.forFeature([Game, GameTile, GameResource, GameDjinn])],
-	controllers: [GamesController],
-	providers: [GamesService, GamesGateway]
+	controllers: [GameController],
+	providers: [GameService, GameGateway]
 })
-export class GamesModule {
+export class GameModule {
 }

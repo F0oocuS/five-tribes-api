@@ -1,12 +1,12 @@
 import { ArrayMinSize, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
+import { Player } from '../entities/player.entity';
+
 import { TileType } from '../../common/types/tile.type';
 import { ResourceType } from '../../common/types/resource.type';
-
 import { AccessType } from '../../common/enums/game.enums';
 import { TileColorEnum } from '../../common/enums/tile-color.enum';
-import { Player } from '../entities/player.entity';
 
 class CreateGameTileDto {
 	@IsString()

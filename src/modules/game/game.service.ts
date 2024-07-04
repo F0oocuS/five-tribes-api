@@ -14,7 +14,7 @@ import { DjinnsStub } from '../../common/stubs/core/djinns.stub';
 import { MeeplesStub } from '../../common/stubs/core/meeples.stub';
 
 @Injectable()
-export class GamesService {
+export class GameService {
 	constructor(
 		@InjectRepository(Game)
 		private readonly gameRepository: Repository<Game>,

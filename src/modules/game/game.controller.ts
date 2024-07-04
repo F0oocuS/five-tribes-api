@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
-import { GamesService } from './games.service';
+import { GameService } from './game.service';
 
 import { Game } from '../../database/entities/game.entity';
 import { CreateGameDto } from '../../database/dtos/create-game.dto';
@@ -8,8 +8,8 @@ import { CreateGameDto } from '../../database/dtos/create-game.dto';
 import { AccessType } from '../../common/enums/game.enums';
 
 @Controller('games')
-export class GamesController {
-	constructor(private readonly gamesService: GamesService) {}
+export class GameController {
+	constructor(private readonly gamesService: GameService) {}
 
 	@Get('')
 	public async getAllGames(): Promise<Game[]> {
