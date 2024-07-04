@@ -42,17 +42,14 @@ export class GameTile {
 	@Column()
 	meeples: string;
 
-	@Column({ name: 'is_on_table', default: false })
-	isOnTable: boolean;
-
 	@Column({ name: 'is_owned', default: false })
 	isOwned: boolean
 
-	@ManyToOne(() => Game, game => game.gameTiles)
+	@ManyToOne(() => Game, game => game.tiles)
 	@JoinColumn({ name: 'game_id' })
 	game: Game;
 
-	@ManyToOne(() => Player, player => player.gameTiles, { nullable: true })
+	@ManyToOne(() => Player, player => player.tiles, { nullable: true })
 	@JoinColumn({ name: 'player_id' })
 	player: Player;
 }

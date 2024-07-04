@@ -37,11 +37,11 @@ export class Player {
 	game: Game;
 
 	@OneToMany(() => GameTile, gameTile => gameTile.player)
-	gameTiles: GameTile[];
+	tiles: GameTile[];
 
 	@OneToMany(() => GameDjinn, gameDjinn => gameDjinn.player)
-	gameDjinns: GameDjinn[];
+	djinns: GameDjinn[];
 
 	@OneToMany(() => GameResource, gameResource => gameResource.player)
-	gameResources: GameResource[];
+	resources: GameResource[];
 }

@@ -27,27 +27,27 @@ export class GamesService {
 	) {}
 
 	public async createGame(createGameDto: CreateGameDto): Promise<Game> {
-		const { gameTiles, gameResources, gameDjinns } = createGameDto;
+		const { tiles, resources, djinns } = createGameDto;
 
 		const game = this.gameRepository.create(createGameDto);
 		const savedGame = await this.gameRepository.save(game);
 
-		if (gameTiles && gameTiles.length) {
-			const tiles = gameTiles.map(tile => ({ ...tile, game: savedGame }));
+		if (tiles && tiles.length) {
+			const gameTiles = tiles.map(tile => ({ ...tile, game: savedGame }));
 
-			await this.gameTileRepository.save(tiles);
+			await this.gameTileRepository.save(gameTiles);
 		}
 
-		if (gameResources && gameResources.length) {
-			const resources = gameResources.map(tile => ({ ...tile, game: savedGame }));
+		if (resources && resources.length) {
+			const gameResources = resources.map(tile => ({ ...tile, game: savedGame }));
 
-			await this.gameResourceRepository.save(resources);
+			await this.gameResourceRepository.save(gameResources);
 		}
 
-		if (gameDjinns && gameDjinns.length) {
-			const djinns = gameDjinns.map(djinn => ({ ...djinn, game: savedGame }));
+		if (djinns && djinns.length) {
+			const gameDjinns = djinns.map(djinn => ({ ...djinn, game: savedGame }));
 
-			await this.gameDjinnRepository.save(djinns);
+			await this.gameDjinnRepository.save(gameDjinns);
 		}
 
 		return savedGame;
@@ -56,11 +56,11 @@ export class GamesService {
 	public async getGameById(id: number): Promise<Game> {
 		const game = await this.gameRepository.findOne({
 			where: { id },
-			relations: ['gameTiles', 'gameResources', 'gameDjinns']
+			relations: ['tiles', 'resources', 'djinns', 'players']
 		});
 
 		if (!game) {
-			throw new NotFoundException(`Game with id ${id} not found`);
+			throw new NotFoundException(`Game with id ${id} not found!`);
 		}
 
 		return game;

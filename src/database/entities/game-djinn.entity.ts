@@ -32,11 +32,11 @@ export class GameDjinn {
 	@Column({ name: 'is_owned', nullable: true })
 	isOwned: boolean;
 
-	@ManyToOne(() => Game, game => game.gameDjinns)
+	@ManyToOne(() => Game, game => game.djinns)
 	@JoinColumn({ name: 'game_id' })
 	game: Game;
 
-	@ManyToOne(() => Player, player => player.gameDjinns, { nullable: true })
+	@ManyToOne(() => Player, player => player.djinns, { nullable: true })
 	@JoinColumn({ name: 'player_id' })
 	player: Player;
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 import { Game } from '../../database/entities/game.entity';
 import { GamesService } from './games.service';
@@ -15,23 +15,16 @@ export class GamesController {
 		return this.gamesService.getAllGames();
 	}
 
-	@Get('create')
-	public async createGame(): Promise<Game> {
+	@Post('create')
+	public async createGame(@Body() createGameDto: CreateGameDto): Promise<Game> {
 		const tiles = this.gamesService.generateGameTiles();
 		const resources = this.gamesService.generateGameResources();
 		const djinns = this.gamesService.generateGameDjinns();
+		const players = [];
 
-		const createGameDto: CreateGameDto = {
-			title: 'First game',
-			accessType: AccessType.PUBLIC,
-			maxPlayerCount: 4,
-			creatorId: 1,
-			gameTiles: [...tiles],
-			gameResources: [...resources],
-			gameDjinns: [...djinns]
-		}
+		const game = { ...createGameDto, tiles, resources, djinns, players };
 
-		return this.gamesService.createGame(createGameDto);
+		return this.gamesService.createGame(game);
 	}
 
 	@Get('tiles')

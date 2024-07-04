@@ -5,7 +5,7 @@ import { Player } from './player.entity';
 
 import { ResourceType } from '../../common/types/resource.type';
 
-@Entity({ name: 'game_resources' })
+@Entity({ name: 'game-resources' })
 export class GameResource {
 	@PrimaryGeneratedColumn()
 	id: number;
@@ -28,11 +28,11 @@ export class GameResource {
 	@Column({ name: 'is_owned', default: false })
 	isOwned: boolean;
 
-	@ManyToOne(() => Game, game => game.gameResources)
+	@ManyToOne(() => Game, game => game.resources)
 	@JoinColumn({ name: 'game_id' })
 	game: Game;
 
-	@ManyToOne(() => Player, player => player.gameResources, { nullable: true })
+	@ManyToOne(() => Player, player => player.resources, { nullable: true })
 	@JoinColumn({ name: 'player_id' })
 	player: Player;
 

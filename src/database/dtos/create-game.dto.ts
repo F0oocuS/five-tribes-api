@@ -6,6 +6,7 @@ import { ResourceType } from '../../common/types/resource.type';
 
 import { AccessType } from '../../common/enums/game.enums';
 import { TileColorEnum } from '../../common/enums/tile-color.enum';
+import { Player } from '../entities/player.entity';
 
 class CreateGameTileDto {
 	@IsString()
@@ -104,17 +105,20 @@ export class CreateGameDto {
 	@Type(() => CreateGameTileDto)
 	@ArrayMinSize(0)
 	@IsOptional()
-	gameTiles?: CreateGameTileDto[];
+	tiles?: CreateGameTileDto[];
 
 	@ValidateNested({ each: true })
 	@Type(() => CreateGameResourceDto)
 	@ArrayMinSize(0)
 	@IsOptional()
-	gameResources?: CreateGameResourceDto[];
+	resources?: CreateGameResourceDto[];
 
 	@ValidateNested({ each: true })
 	@Type(() => CreateGameDjinnDto)
 	@ArrayMinSize(0)
 	@IsOptional()
-	gameDjinns?: CreateGameDjinnDto[];
+	djinns?: CreateGameDjinnDto[];
+
+	@ValidateNested({ each: true })
+	players?: Player[];
 }

@@ -22,7 +22,7 @@ export class Game {
 	@Column({ name: 'active_player_id', nullable: true })
 	activePlayerId: number;
 
-	@Column({ name: 'max_player_count' })
+	@Column({ name: 'max_player_count', default: 4 })
 	maxPlayerCount: number;
 
 	@Column({ nullable: true })
@@ -36,11 +36,11 @@ export class Game {
 	players: Player[];
 
 	@OneToMany(() => GameTile, gameTile => gameTile.game)
-	gameTiles: GameTile[];
+	tiles: GameTile[];
 
 	@OneToMany(() => GameResource, gameResource => gameResource.game)
-	gameResources: GameResource[];
+	resources: GameResource[];
 
 	@OneToMany(() => GameDjinn, gameDjinn => gameDjinn.game)
-	gameDjinns: GameDjinn[];
+	djinns: GameDjinn[];
 }
