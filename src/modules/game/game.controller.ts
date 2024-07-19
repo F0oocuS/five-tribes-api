@@ -9,6 +9,7 @@ import { CreateGameDto } from '../../database/dtos/create-game.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 import { AccessType } from '../../common/enums/game.enums';
+import { User } from '../../database/entities/user.entity';
 
 @Controller('games')
 export class GameController {
@@ -22,17 +23,16 @@ export class GameController {
 	@UseGuards(JwtAuthGuard)
 	@Post('create')
 	public async createGame(@Body() createGameDto: CreateGameDto, @Req() request): Promise<Game> {
-		// console.log(request.user);
-		const user = request.user;
+		const user = request.user as User;
 
 		const tiles = this.gamesService.generateGameTiles();
 		const resources = this.gamesService.generateGameResources();
 		const djinns = this.gamesService.generateGameDjinns();
 		const players = [];
 
-		const game = { ...createGameDto, tiles, resources, djinns, players, creatorId: user.userId };
+		const game = { ...createGameDto, tiles, resources, djinns, players };
 
-		return this.gamesService.createGame(game);
+		return this.gamesService.createGame(game, user);
 	}
 
 	@Get('tiles')

@@ -98,9 +98,6 @@ export class CreateGameDto {
 	@IsString()
 	password?: string;
 
-	@IsNumber()
-	creatorId: number;
-
 	@ValidateNested({ each: true })
 	@Type(() => CreateGameTileDto)
 	@ArrayMinSize(0)
