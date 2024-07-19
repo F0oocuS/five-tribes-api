@@ -7,6 +7,7 @@ import { GameTile } from '../../database/entities/game-tile.entity';
 import { GameResource } from '../../database/entities/game-resource.entity';
 import { GameDjinn } from '../../database/entities/game-djinn.entity';
 import { CreateGameDto } from '../../database/dtos/create-game.dto';
+import { User } from '../../database/entities/user.entity';
 
 import { TilesStub } from '../../common/stubs/core/tiles.stub';
 import { ResourcesStub } from '../../common/stubs/core/resources.stub';
@@ -24,9 +25,12 @@ export class GameService {
 		private readonly gameResourceRepository: Repository<GameResource>,
 		@InjectRepository(GameDjinn)
 		private readonly gameDjinnRepository: Repository<GameDjinn>,
+		@InjectRepository(User)
+		private readonly userRepository: Repository<User>
 	) {}
 
 	public async createGame(createGameDto: CreateGameDto): Promise<Game> {
+		console.log(createGameDto.creatorId);
 		const { tiles, resources, djinns } = createGameDto;
 
 		const game = this.gameRepository.create(createGameDto);
