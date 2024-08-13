@@ -7,12 +7,16 @@ import { Game } from '../../database/entities/game.entity';
 import { GameTile } from '../../database/entities/game-tile.entity';
 import { GameResource } from '../../database/entities/game-resource.entity';
 import { GameDjinn } from '../../database/entities/game-djinn.entity';
+import { Player } from '../../database/entities/player.entity';
 import { CreateGameDto } from '../../database/dtos/create-game.dto';
 
 import { TilesStub } from '../../common/stubs/core/tiles.stub';
 import { ResourcesStub } from '../../common/stubs/core/resources.stub';
 import { DjinnsStub } from '../../common/stubs/core/djinns.stub';
 import { MeeplesStub } from '../../common/stubs/core/meeples.stub';
+import { plainToInstance } from 'class-transformer';
+import { PlayerDto } from '../../database/dtos/player.dto';
+import { GameGateway } from './game.gateway';
 
 @Injectable()
 export class GameService {
@@ -26,7 +30,10 @@ export class GameService {
 		@InjectRepository(GameDjinn)
 		private readonly gameDjinnRepository: Repository<GameDjinn>,
 		@InjectRepository(User)
-		private readonly userRepository: Repository<User>
+		private readonly userRepository: Repository<User>,
+		@InjectRepository(Player)
+		private readonly playerRepository: Repository<Player>,
+		private readonly gameGateway: GameGateway
 	) {}
 
 	public async createGame(createGameDto: CreateGameDto, user: User): Promise<Game> {
@@ -59,7 +66,7 @@ export class GameService {
 	public async getGameById(id: number): Promise<Game> {
 		const game = await this.gameRepository.findOne({
 			where: { id },
-			relations: ['tiles', 'resources', 'djinns', 'players']
+			relations: ['tiles', 'resources', 'djinns', 'players', 'players.user']
 		});
 
 		if (!game) {
@@ -77,6 +84,39 @@ export class GameService {
 		}
 
 		return games;
+	}
+
+	public async addPlayerToGame(gameId: number, user: User): Promise<Game> {
+		const game = await this.gameRepository.findOne({
+			where: { id: gameId },
+			relations: ['players', 'players.user']
+		});
+
+		if (!game) {
+			throw new Error('Game not found');
+		}
+
+		game.players.forEach(player => {
+			if (player.user.id === user.id) {
+				throw new Error('You already join in the game');
+			}
+		});
+
+		const player = this.playerRepository.create({ game, user });
+
+		await this.playerRepository.save(player);
+
+		this.gameGateway.notifyPlayers(gameId);
+
+		// game.players = [...game.players, player];
+		// TODO гвард має перевіряти доступність гравця
+		// TODO think about remove additional database request and return expanded object instead
+		return this.gameRepository.findOne({
+			where: { id: gameId },
+			relations: ['players', 'players.user']
+		});
+
+		// return game;
 	}
 
 	public generateGameTiles() {

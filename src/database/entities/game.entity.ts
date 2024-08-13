@@ -28,7 +28,7 @@ export class Game {
 	@Column({ nullable: true })
 	password: string;
 
-	@ManyToOne(() => User, user => user.games, { eager: true, nullable: false })
+	@ManyToOne(() => User, user => user.games, { nullable: false })
 	@JoinColumn({ name: 'creator_id' })
 	user: User;
 

@@ -1,9 +1,20 @@
-import { SubscribeMessage, WebSocketGateway } from '@nestjs/websockets';
+import { SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
+import { Server } from 'socket.io';
 
-@WebSocketGateway()
+@WebSocketGateway({ cors: true })
 export class GameGateway {
-	@SubscribeMessage('message')
-	handleMessage(client: any, payload: any): string {
-		return 'Hello world!';
+	@WebSocketServer()
+	server: Server;
+
+	notifyPlayers(gameId: number) {
+		this.server.to(`game_${gameId}`).emit('playerJoined', { gameId });
+	}
+
+	handleConnection(client: any) {
+
+	}
+
+	handleDisconnect(client) {
+
 	}
 }

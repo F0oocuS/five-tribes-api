@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, RelationId } from 'typeorm';
 
 import { User } from './user.entity';
 import { Game } from './game.entity';
@@ -28,8 +28,12 @@ export class Player {
 	@Column({ nullable: true })
 	meeples: string;
 
+	@Column({ name: 'user_id' })
+	userId: number
+
 	@ManyToOne(() => User, user => user.players)
 	@JoinColumn({ name: 'user_id' })
+	// @RelationId((user: User) => user.id) // you need to specify target relation
 	user: User;
 
 	@ManyToOne(() => Game, game => game.players)

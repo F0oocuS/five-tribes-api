@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Req, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 // import { Request } from 'express';
 
 import { GameService } from './game.service';
@@ -33,6 +33,20 @@ export class GameController {
 		const game = { ...createGameDto, tiles, resources, djinns, players };
 
 		return this.gamesService.createGame(game, user);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Post('join')
+	public async joinToGame(@Body() body, @Req() request): Promise<any> {
+		const user = request.user as User;
+		const gameId = body.gameId;
+
+		return this.gamesService.addPlayerToGame(gameId, user);
+
+		// console.log(body.gameID);
+		// console.log(user);
+
+		// return 'Hello world';
 	}
 
 	@Get('tiles')
